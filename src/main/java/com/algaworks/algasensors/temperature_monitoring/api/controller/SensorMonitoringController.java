@@ -35,7 +35,7 @@ public class SensorMonitoringController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void enable(@PathVariable TSID sensorId) {
         SensorMonitoring sensorMonitoring = findByIdOrDefault(sensorId);
-        if (sensorMonitoring.getEnabled()) {
+        if (Boolean.TRUE.equals(sensorMonitoring.getEnabled())) {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
         }
         sensorMonitoring.setEnabled(true);
@@ -48,8 +48,8 @@ public class SensorMonitoringController {
     @SneakyThrows
     public void disable(@PathVariable TSID sensorId) {
         SensorMonitoring sensorMonitoring = findByIdOrDefault(sensorId);
-        if (!sensorMonitoring.getEnabled()) {
-            Thread.sleep(Duration.ofSeconds(10));
+        if (Boolean.FALSE.equals(sensorMonitoring.getEnabled())) {
+            Thread.sleep(Duration.ofSeconds(1));
         }
         sensorMonitoring.setEnabled(false);
 
